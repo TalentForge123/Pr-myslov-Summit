@@ -1,21 +1,10 @@
-"use client";
+// app/components/Countdown.tsx
+"use client"; // Důležité pro klientskou interaktivitu v Next.js App Routeru
 
 import { useState, useEffect } from 'react';
 
-interface CountdownProps {
-  targetDate: Date;
-}
-
-interface TimeLeft {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-  total: number;
-}
-
-export default function Countdown({ targetDate }: CountdownProps) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(targetDate));
+export default function Countdown({ targetDate }: { targetDate: Date }) {
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft(targetDate));
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,7 +14,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  function getTimeLeft(target: Date): TimeLeft {
+  function getTimeLeft(target: Date) {
     const total = target.getTime() - new Date().getTime();
     const days = Math.floor(total / (1000 * 60 * 60 * 24));
     const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
@@ -42,26 +31,26 @@ export default function Countdown({ targetDate }: CountdownProps) {
   }
 
   if (timeLeft.total <= 0) {
-    return <div className="text-3xl font-bold text-green-400">Summit probíhá!</div>;
+    return <div className="text-3xl font-bold text-green-400">Summit probíhá/proběhl!</div>;
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4 md:gap-6 text-center">
-      <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 md:p-4">
-        <span className="block text-3xl md:text-5xl font-bold">{timeLeft.days}</span>
-        <span className="text-sm md:text-base font-medium text-gray-300">dní</span>
+    <div className="flex justify-center space-x-4 md:space-x-6 text-center text-4xl md:text-5xl font-extrabold">
+      <div className="p-3 bg-white bg-opacity-20 rounded-lg">
+        <span className="block">{timeLeft.days}</span>
+        <span className="text-sm md:text-base font-normal text-gray-300">dní</span>
       </div>
-      <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 md:p-4">
-        <span className="block text-3xl md:text-5xl font-bold">{timeLeft.hours}</span>
-        <span className="text-sm md:text-base font-medium text-gray-300">hodin</span>
+      <div className="p-3 bg-white bg-opacity-20 rounded-lg">
+        <span className="block">{timeLeft.hours}</span>
+        <span className="text-sm md:text-base font-normal text-gray-300">hodin</span>
       </div>
-      <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 md:p-4">
-        <span className="block text-3xl md:text-5xl font-bold">{timeLeft.minutes}</span>
-        <span className="text-sm md:text-base font-medium text-gray-300">minut</span>
+      <div className="p-3 bg-white bg-opacity-20 rounded-lg">
+        <span className="block">{timeLeft.minutes}</span>
+        <span className="text-sm md:text-base font-normal text-gray-300">minut</span>
       </div>
-      <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 md:p-4">
-        <span className="block text-3xl md:text-5xl font-bold">{timeLeft.seconds}</span>
-        <span className="text-sm md:text-base font-medium text-gray-300">sekund</span>
+      <div className="p-3 bg-white bg-opacity-20 rounded-lg">
+        <span className="block">{timeLeft.seconds}</span>
+        <span className="text-sm md:text-base font-normal text-gray-300">sekund</span>
       </div>
     </div>
   );
