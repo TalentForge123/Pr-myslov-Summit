@@ -1,27 +1,20 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// app/layout.tsx
+import './globals.css';
+import Navbar from './components/Navbar';
+import React from 'react'; // React je potřeba pro JSX
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Průmyslový Summit 2025",
-  description: "Globální setkání lídrů a inovátorů v průmyslu",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="cs">
-      <body className={inter.className}>
+      <body>
         <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {children} {/* Zde se bude renderovat obsah jednotlivých stránek */}
+        <footer className="bg-gray-900 text-white text-center p-8 mt-12">
+          <div className="container mx-auto">
+            <p>&copy; {new Date().getFullYear()} Průmyslový Summit. Všechna práva vyhrazena.</p>
+            <p className="mt-2 text-sm text-gray-400">Vytvořeno s láskou a technologiemi pro lepší zítřek.</p>
+          </div>
+        </footer>
       </body>
     </html>
   );
